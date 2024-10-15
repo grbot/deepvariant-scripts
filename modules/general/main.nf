@@ -14,7 +14,7 @@ process align {
         tuple val(sample_id), path(fastq_r1_file), path(fastq_r2_file)
 
     output:
-        tuple val("$sample_id"), path("${sample_id}.bam"), path("${sample_id}.bam.bai"), emit: cram 
+        tuple val("$sample_id"), path("${sample_id}.cram"), path("${sample_id}.cram.crai"), emit: cram 
 
     script:
         flowcell = new Random().nextInt(10000)
@@ -33,8 +33,9 @@ process align {
         samtools sort \
         -@ ${nr_cores} \
         -m ${params.memory_per_thread} \
-        - > ${sample_id}.bam	
-	samtools index ${sample_id}.bam
+        -O cram \
+        - > ${sample_id}.cram	
+	samtools index ${sample_id}.cram
         """ 
 }
 
@@ -44,7 +45,7 @@ process call_variants {
     label 'deepvariant'
 
     input:
-        tuple val(sample_id), path(bam_file), path(bam_file_index)
+        tuple val(sample_id), path(cram_file), path(cram_file_index)
 
     output:
         tuple val(sample_id), path("${sample_id}.vcf.gz"), path("${sample_id}.g.vcf.gz"), emit: vcf
@@ -54,7 +55,7 @@ process call_variants {
        /opt/deepvariant/bin/run_deepvariant \
        --model_type=WGS \
        --ref=${ref} \
-       --reads=${bam_file} \
+       --reads=${cram_file} \
        --output_vcf=${sample_id}.vcf.gz \
        --output_gvcf=${sample_id}.g.vcf.gz \
        --num_shards=${nr_cores} \

@@ -16,8 +16,8 @@ Channel.fromPath(params.sample_sheet)
 
 workflow {
   
-  bam = align(samples)
-  vcf = call_variants(bam)
+  cram = align(samples)
+  vcf = call_variants(cram)
        
 }
 
