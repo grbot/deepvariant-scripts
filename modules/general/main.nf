@@ -9,6 +9,7 @@ process align {
     tag { "${sample_id}.align" }
     publishDir "${params.out_dir}", mode: 'copy', overwrite: false
     label 'bwa'
+    cpus ${nr_cores}
 
     input:
         tuple val(sample_id), path(fastq_r1_file), path(fastq_r2_file)
@@ -43,6 +44,7 @@ process call_variants {
     tag { "${sample_id}.call_variants" }
     publishDir "${params.out_dir}/", mode: 'copy', overwrite: false
     label 'deepvariant'
+    cpus ${nr_cores}
 
     input:
         tuple val(sample_id), path(cram_file), path(cram_file_index)
