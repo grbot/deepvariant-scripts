@@ -58,7 +58,7 @@ process call_variants {
        --reads=${cram_file} \
        --output_vcf=${sample_id}.vcf.gz \
        --output_gvcf=${sample_id}.g.vcf.gz \
-       --num_shards=${nr_cores} \
+       --num_shards=${nr_cores}       
         """
 }
 
