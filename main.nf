@@ -2,7 +2,7 @@
 nextflow.enable.dsl=2
 
 // For general use
-include { align; call_variants } from './modules/general/main.nf'
+include { align; call_variants; filter } from './modules/general/main.nf'
 
 // Get params
 
@@ -18,6 +18,7 @@ workflow {
   
   cram = align(samples)
   vcf = call_variants(cram)
+  filter(vcf)
        
 }
 

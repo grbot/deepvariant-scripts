@@ -1,5 +1,10 @@
 # deepvariant-scripts
 
+## Get the code
+```
+git clone https://github.com/grbot/deepvariant-scripts.git
+```
+
 ## Set environment variables in `~/.bashrc`
 ```
 export PATH=$PATH:/cbio/soft/jdk-11.0.2/bin:/cbio/soft/nextflow/

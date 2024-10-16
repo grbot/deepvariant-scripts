@@ -62,3 +62,27 @@ process call_variants {
         """
 }
 
+
+process filter {
+    tag { "${sample_id}.filter" }
+    publishDir "${params.out_dir}/", mode: 'copy', overwrite: false
+    label 'bcftools'
+
+    input:
+        tuple val(sample_id), path(vcf_file), path(vcf_file_index)
+
+    output:
+        tuple val(sample_id), path("${sample_id}.pass.vcf.gz"), path("${sample_id}.pass.vcf.gz.tbi"), emit: vcf
+
+    script:
+        """
+        bcftools view \
+        --include "FILTER='PASS'" \
+        -O z \
+        -o "${sample_id}.pass.vcf.gz" \
+        ${vcf_file}
+        bcftools index \
+       -t \
+       "${sample_id}.pass.vcf.gz"
+        """
+}
