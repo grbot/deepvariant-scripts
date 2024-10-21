@@ -13,6 +13,11 @@ export JAVA_HOME=/cbio/soft/jdk-11.0.2
 export NXF_OPTS="-Xms50m -Xmx24g"
 ```
 
+## Sample sheet format
+| SampleID | FastqR1 | FastqR2 |
+| -------- | ------ | ------- |
+| A01      | /pathto/A01_R1.fastq.gz       | /pathto/A01_R2.fastq.gz  |
+
 ## Workflow
 
 1) Set sample sheet. See `NA12878.samplesheet.small.tsv` (contains Fastq reads)
