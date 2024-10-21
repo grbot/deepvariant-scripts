@@ -26,4 +26,4 @@ export NXF_OPTS="-Xms50m -Xmx24g"
 
 # Note
 - A samplesheet with 5 1000 genomes have also been prepared (`1kg.samplesheet.tsv`)
-- Example output is in `/cbio/projects/031/gerrit/examples`
+- Example output is in `/cbio/projects/037/gerrit/examples`
