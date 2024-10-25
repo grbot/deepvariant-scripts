@@ -4,6 +4,7 @@ nextflow.enable.dsl=2
 // Get params
 ref = file(params.ref, type: 'file')
 nr_cores= params.nr_cores
+deepvariant_tmp_dir = params.deepvariant_tmp_dir
 
 process align {
     tag { "${sample_id}.align" }
@@ -60,7 +61,8 @@ process call_variants {
        --reads=${cram_file} \
        --output_vcf=${sample_id}.vcf.gz \
        --output_gvcf=${sample_id}.g.vcf.gz \
-       --num_shards=${nr_cores}       
+       --num_shards=${nr_cores} \
+       --intermediate_results_dir ${deepvariant_tmp_dir}
         """
 }
 
